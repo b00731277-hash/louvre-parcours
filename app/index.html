@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcours de visite — Louvre</title>
+<style>
+  :root {
+    --gold: #b9975a;
+    --gold-dark: #8a6d3b;
+    --ink: #1c1a17;
+    --paper: #faf7f2;
+    --paper-dim: #f0ebe1;
+    --line: #ddd3c2;
+    --muted: #7a7264;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  header {
+    padding: 2rem 1.2rem 1.2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    letter-spacing: 0.02em;
+  }
+  header .sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.35rem;
+    font-family: -apple-system, sans-serif;
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1.2rem;
+  }
+
+  /* --- Liste des parcours --- */
+  #list-view .card {
+    display: block;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+    margin-bottom: 0.9rem;
+    text-decoration: none;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  #list-view .card:hover { border-color: var(--gold); transform: translateY(-1px); }
+  #list-view .card h3 { margin: 0 0 0.35rem; font-size: 1.1rem; line-height: 1.35; }
+  #list-view .card .fil { font-size: 0.92rem; color: #4a463f; margin-bottom: 0.5rem; }
+  #list-view .card .meta {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 3rem 1rem;
+    font-family: -apple-system, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* --- Détail d'un parcours --- */
+  #detail-view { display: none; }
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-family: -apple-system, sans-serif;
+  }
+  .back-link {
+    font-size: 0.85rem;
+    color: var(--gold-dark);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .back-link:hover { text-decoration: underline; }
+  .print-btn {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.82rem;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  .print-btn:hover { background: var(--gold-dark); }
+
+  .parcours-title { font-size: 1.5rem; margin: 0 0 0.5rem; line-height: 1.35; }
+  .parcours-fil {
+    font-size: 1rem;
+    color: #4a463f;
+    margin-bottom: 0.7rem;
+    font-style: italic;
+  }
+  .parcours-meta {
+    font-family: -apple-system, sans-serif;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-bottom: 1.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .salle-step { margin-bottom: 1.8rem; }
+  .salle-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .salle-num {
+    flex: 0 0 auto;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--gold);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .salle-label {
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--gold-dark);
+  }
+
+  .oeuvre {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0 0.9rem 2.5rem;
+  }
+  .oeuvre + .oeuvre { border-top: 1px dashed var(--line); }
+  .oeuvre-img {
+    flex: 0 0 96px;
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--paper-dim);
+    border: 1px solid var(--line);
+  }
+  .oeuvre-body { flex: 1; min-width: 0; }
+  .oeuvre-body h3 { margin: 0 0 0.15rem; font-size: 1.05rem; line-height: 1.35; }
+  .oeuvre-body .artist {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-bottom: 0.5rem;
+  }
+  .oeuvre-body .note {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #4a463f;
+  }
+  a.notice-link {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.76rem;
+    color: var(--gold-dark);
+    display: inline-block;
+    margin-top: 0.4rem;
+  }
+
+  @media print {
+    header, .toolbar, .back-link, .print-btn { display: none !important; }
+    body { background: white; }
+    main { max-width: 100%; padding: 0; }
+    .salle-step { break-inside: avoid; margin-bottom: 1.2rem; }
+    .oeuvre { break-inside: avoid; }
+    a.notice-link { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Parcours de visite</h1>
+  <div class="sub">Mini parcours au Louvre générés à partir de vos cours d'histoire de l'art</div>
+</header>
+<main>
+  <div id="list-view"></div>
+  <div id="detail-view"></div>
+</main>
+
+<script src="../data/app-data.js"></script>
+<script>
+function locationLabel(o) {
+  const parts = [o.salle, o.aile, o.niveau].filter(Boolean);
+  return parts.length ? parts.join(' · ') : 'Emplacement non renseigné';
+}
+
+function sameRoom(a, b) {
+  return a && b && a.salle === b.salle && a.aile === b.aile && a.niveau === b.niveau;
+}
+
+function renderList() {
+  const listView = document.getElementById('list-view');
+  const detailView = document.getElementById('detail-view');
+  detailView.style.display = 'none';
+  listView.style.display = 'block';
+
+  const parcoursList = (window.PARCOURS || [])
+    .slice()
+    .sort((a, b) => (b.date_creation || '').localeCompare(a.date_creation || ''));
+
+  if (!parcoursList.length) {
+    listView.innerHTML = `
+      <div class="empty">
+        Aucun parcours pour l'instant.<br>
+        Donnez le texte d'un de vos cours à Claude dans ce projet et demandez-lui
+        de générer un parcours — il apparaîtra ici.
+      </div>`;
+    return;
+  }
+
+  listView.innerHTML = parcoursList.map(p => `
+    <a class="card" onclick="openParcours('${p.id}')">
+      <h3>${p.titre}</h3>
+      <div class="fil">${p.fil_conducteur || ''}</div>
+      <div class="meta">${p.date_creation || ''} · ${p.etapes.length} œuvres · ${p.duree_estimee || ''}</div>
+    </a>
+  `).join('');
+}
+
+function openParcours(id) {
+  const listView = document.getElementById('list-view');
+  const detailView = document.getElementById('detail-view');
+
+  const parcours = (window.PARCOURS || []).find(p => p.id === id);
+  const oeuvres = window.OEUVRES || [];
+  if (!parcours) return;
+
+  const byId = Object.fromEntries(oeuvres.map(o => [o.id, o]));
+
+  // Regroupe les étapes consécutives situées dans la même salle.
+  const groups = [];
+  parcours.etapes.forEach(etape => {
+    const o = byId[etape.oeuvre_id] || {};
+    const last = groups[groups.length - 1];
+    if (last && sameRoom(last.room, o)) {
+      last.items.push({ o, etape });
+    } else {
+      groups.push({ room: o, items: [{ o, etape }] });
+    }
+  });
+
+  const stepsHtml = groups.map((g, i) => {
+    const oeuvresHtml = g.items.map(({ o, etape }) => {
+      const img = o.image
+        ? `<img class="oeuvre-img" src="${o.image}" alt="${o.titre || ''}">`
+        : `<div class="oeuvre-img"></div>`;
+      return `
+        <div class="oeuvre">
+          ${img}
+          <div class="oeuvre-body">
+            <h3>${o.titre || '(œuvre inconnue : ' + etape.oeuvre_id + ')'}</h3>
+            <div class="artist">${o.artiste || ''}${o.dates ? ' — ' + o.dates : ''}</div>
+            <div class="note">${etape.note || ''}</div>
+            ${o.notice_url ? `<a class="notice-link" href="${o.notice_url}" target="_blank">Voir la notice Louvre &rarr;</a>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="salle-step">
+        <div class="salle-header">
+          <div class="salle-num">${i + 1}</div>
+          <div class="salle-label">${locationLabel(g.room)}</div>
+        </div>
+        ${oeuvresHtml}
+      </div>`;
+  }).join('');
+
+  detailView.innerHTML = `
+    <div class="toolbar">
+      <a class="back-link" onclick="renderList()">&larr; Tous les parcours</a>
+      <button class="print-btn" onclick="window.print()">Exporter en PDF</button>
+    </div>
+    <div class="parcours-title">${parcours.titre}</div>
+    <div class="parcours-fil">${parcours.fil_conducteur || ''}</div>
+    <div class="parcours-meta">
+      <span>${parcours.etapes.length} œuvres</span>
+      <span>${groups.length} salles</span>
+      <span>${parcours.duree_estimee || ''}</span>
+      <span>${parcours.cours_source || ''}</span>
+    </div>
+    ${stepsHtml}
+  `;
+  listView.style.display = 'none';
+  detailView.style.display = 'block';
+}
+
+renderList();
+</script>
+</body>
+</html>
