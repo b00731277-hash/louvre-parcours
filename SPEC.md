@@ -73,10 +73,10 @@ Il n'y a pas de bouton "générer" autonome dans l'appli : la génération se fa
 Livrable final unique : le site **"Parcours de visite"**, développé avec
 Claude, disponible sur ordinateur et mobile.
 
-- **Site statique déployé sur GitLab Pages.** Claude prépare tout localement
-  (fichiers + configuration de publication) ; **c'est Justine qui crée le
-  dépôt GitLab et fait le `git push`** — Claude ne pousse pas et ne crée pas
-  le dépôt distant.
+- **Site statique déployé sur GitHub Pages.** Claude prépare tout localement
+  (fichiers + configuration de publication, commits inclus) ; **c'est
+  Justine qui crée le dépôt GitHub et fait le `git push`** — Claude ne
+  pousse pas et ne crée pas le dépôt distant.
 - **Export PDF par parcours**, à chaque utilisation : un bouton dans le site
   génère un PDF imprimable/téléchargeable du parcours consulté (salle par
   salle, œuvres et analyses incluses), pour un usage hors-ligne pendant la
@@ -90,7 +90,7 @@ Claude, disponible sur ordinateur et mobile.
 - Les données (œuvres + parcours) sont embarquées dans un fichier JS
   (`data/app-data.js`) plutôt que chargées en JSON via `fetch`, pour que le
   site fonctionne aussi bien en local (double-clic) qu'une fois déployé sur
-  GitLab Pages, sans dépendre d'un serveur de développement.
+  GitHub Pages, sans dépendre d'un serveur de développement.
 - Design mobile-first (c'est l'usage principal : consultation en marchant).
 - Feuille de style d'impression (`@media print`) dédiée pour l'export PDF
   via l'impression navigateur (`window.print()`), sans dépendance externe.

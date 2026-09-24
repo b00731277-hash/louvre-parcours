@@ -22,7 +22,7 @@ Ce document ne contient aucun code : c'est le plan que je propose de suivre,
    analyses dépliées, image et lien vers la notice Louvre pour chacune.
 5. **Export PDF** : bouton d'impression avec une mise en page pensée pour le
    papier, testé sur ce même parcours.
-6. **Dépôt git + configuration GitLab Pages**, prêts localement, avec un
+6. **Dépôt git + configuration GitHub Pages**, prêts localement, avec un
    mode d'emploi pour que vous fassiez la création du dépôt et le premier
    `git push` vous-même.
 7. **Vérification finale** : rendu sur mobile, rendu à l'impression, relecture
@@ -42,7 +42,7 @@ sans vous le signaler). Or un navigateur bloque, pour des raisons de
 sécurité, le chargement de fichiers séparés depuis une page ouverte en
 double-clic. Regrouper toutes les données dans un seul fichier JavaScript,
 lu directement par la page, contourne ce blocage — aussi bien en local
-qu'une fois le site déployé sur GitLab Pages (où le blocage ne se pose de
+qu'une fois le site déployé sur GitHub Pages (où le blocage ne se pose de
 toute façon plus, mais je préfère une seule façon de faire, testée dans les
 deux cas).
 
@@ -148,11 +148,11 @@ ensemble :
 
 ## 6. Ce qui me manque encore avant de tout construire sereinement
 
-1. **Confidentialité du site une fois publié.** Un site GitLab Pages
+1. **Confidentialité du site une fois publié.** Un site GitHub Pages
    "classique" est public par défaut : n'importe qui avec le lien — voire
    les moteurs de recherche — peut le consulter. Vos notes de cours et
    leur contenu pédagogique seraient donc visibles publiquement, sauf à
-   utiliser une fonctionnalité payante de GitLab restreignant l'accès.
+   utiliser une fonctionnalité payante de GitHub restreignant l'accès.
    → **Voulez-vous que le site soit public, ou dois-je prévoir une
    restriction d'accès ?**
 2. **Droit d'usage des images du Louvre.** Elles sont en libre consultation,
@@ -166,7 +166,7 @@ ensemble :
    vous que j'intègre les images directement dans les données du parcours**
    (ce qui alourdit le fichier de données, mais rend le PDF fiable hors
    connexion) ?
-4. **Nom du projet/dépôt GitLab.** J'ai besoin du nom que vous voulez donner
+4. **Nom du projet/dépôt GitHub.** J'ai besoin du nom que vous voulez donner
    au dépôt pour préparer une configuration et une documentation cohérentes
    (l'URL finale du site en dépendra).
 5. **Validation du style visuel.** Je n'ai pas eu de retour sur l'esquisse

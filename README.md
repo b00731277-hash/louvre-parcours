@@ -22,43 +22,39 @@ La page charge ses données depuis `data/app-data.js` via une balise
 `<script>` (pas de `fetch`), donc **un double-clic sur `app/index.html`
 suffit** — pas besoin de serveur.
 
-(Remarque technique : ce Mac n'a ni Python ni Node ni git installés par
-défaut — testé pendant le développement, un serveur local a été lancé une
-fois avec Ruby, déjà présent sur macOS, juste pour vérifier le rendu. Ce
-n'est pas nécessaire pour l'usage normal du site.)
+(Remarque technique : ce Mac n'avait ni Python ni git installés par défaut
+— un serveur local a été lancé une fois avec Ruby, déjà présent sur macOS,
+juste pour vérifier le rendu pendant le développement. Ce n'est pas
+nécessaire pour l'usage normal du site.)
 
-## Déployer sur GitLab Pages
+## Déployer sur GitHub Pages
 
-Tout est prêt dans ce dossier (`.gitlab-ci.yml`, `.gitignore`) ; il ne
+Le dépôt local est déjà initialisé et le premier commit est fait. Le
+workflow de publication (`.github/workflows/pages.yml`) est prêt ; il ne
 reste que la partie que vous seule devez faire, depuis un Terminal :
 
 ```bash
 cd "/Users/jdufrenois/Documents/louvre-parcours"
 
-# Si git n'est pas encore installé sur ce Mac :
-xcode-select --install
-
-git init
-git add .
-git commit -m "Premier parcours : romantisme contre néoclassicisme"
-
-# Créez un dépôt vide sur gitlab.com (ex. "louvre-parcours"), puis :
-git remote add origin git@gitlab.com:<votre-compte>/louvre-parcours.git
+# Créez un dépôt vide sur github.com (ex. "louvre-parcours"), sans README
+# ni .gitignore (déjà présents ici), puis :
+git remote add origin https://github.com/b00731277-hash/louvre-parcours.git
 git branch -M main
 git push -u origin main
 ```
 
-GitLab détecte automatiquement `.gitlab-ci.yml` et publie le site. L'URL
-sera de la forme `https://<votre-compte>.gitlab.io/louvre-parcours/`
-(visible dans GitLab sous **Déployer → Pages** une fois le pipeline
-terminé).
+Ensuite, dans le dépôt sur GitHub : **Settings → Pages → Build and
+deployment → Source : GitHub Actions**. Le workflow se déclenche
+automatiquement à chaque push sur `main`. L'URL sera de la forme
+`https://b00731277-hash.github.io/louvre-parcours/` (indiquée dans
+**Settings → Pages** une fois le déploiement terminé).
 
-**Point d'attention (voir aussi PLAN.md §6)** : un projet GitLab Pages
+**Point d'attention (voir aussi PLAN.md §6)** : un dépôt GitHub Pages
 "classique" est **public** par défaut — n'importe qui avec le lien peut
-consulter le site, y compris son contenu pédagogique. Si vous voulez le
-garder privé, dites-le : il existe des options (dépôt privé avec accès
-restreint) mais elles demandent une configuration supplémentaire, parfois
-liée au plan GitLab utilisé.
+consulter le site, y compris son contenu pédagogique (et le dépôt
+lui-même doit être public pour que GitHub Pages fonctionne sans compte
+payant). Si vous voulez le garder privé, dites-le : GitHub Pages sur un
+dépôt privé demande un abonnement GitHub Pro/Team/Enterprise.
 
 ## Structure des données
 
