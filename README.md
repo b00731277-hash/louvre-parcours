@@ -34,7 +34,7 @@ workflow de publication (`.github/workflows/pages.yml`) est prêt ; il ne
 reste que la partie que vous seule devez faire, depuis un Terminal :
 
 ```bash
-cd "/Users/jdufrenois/Documents/louvre-parcours"
+cd "/Users/jdufrenois/Documents/musees-parcours"
 
 # Créez un dépôt vide sur github.com (ex. "musees-parcours"), sans README
 # ni .gitignore (déjà présents ici), puis :

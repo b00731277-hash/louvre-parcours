@@ -66,7 +66,10 @@ Il n'y a pas de bouton "générer" autonome dans l'appli : la génération se fa
    les ajoute à la base si besoin.
 6. Claude rédige l'analyse condensée (150-400 mots) de chaque œuvre à partir
    du cours, et regroupe les œuvres en étapes par salle.
-7. Claude enregistre le nouveau parcours dans le site (voir §7).
+7. Claude enregistre le nouveau parcours dans `data/app-data.js`, **en
+   local uniquement**. Claude ne commit et ne pousse pas automatiquement
+   sur GitHub — Justine le demande explicitement quand elle veut publier
+   la mise à jour (voir §7).
 
 ## 7. Livrables / diffusion
 
