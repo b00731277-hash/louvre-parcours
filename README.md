@@ -36,9 +36,9 @@ reste que la partie que vous seule devez faire, depuis un Terminal :
 ```bash
 cd "/Users/jdufrenois/Documents/louvre-parcours"
 
-# Créez un dépôt vide sur github.com (ex. "louvre-parcours"), sans README
+# Créez un dépôt vide sur github.com (ex. "musees-parcours"), sans README
 # ni .gitignore (déjà présents ici), puis :
-git remote add origin https://github.com/b00731277-hash/louvre-parcours.git
+git remote add origin https://github.com/b00731277-hash/musees-parcours.git
 git branch -M main
 git push -u origin main
 ```
@@ -46,7 +46,7 @@ git push -u origin main
 Ensuite, dans le dépôt sur GitHub : **Settings → Pages → Build and
 deployment → Source : GitHub Actions**. Le workflow se déclenche
 automatiquement à chaque push sur `main`. L'URL sera de la forme
-`https://b00731277-hash.github.io/louvre-parcours/` (indiquée dans
+`https://b00731277-hash.github.io/musees-parcours/` (indiquée dans
 **Settings → Pages** une fois le déploiement terminé).
 
 **Point d'attention (voir aussi PLAN.md §6)** : un dépôt GitHub Pages
